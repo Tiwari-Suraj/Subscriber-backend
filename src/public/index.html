@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Subscribers API Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .endpoint {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        input {
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .error {
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>YouTube Subscribers API Tester</h1>
+
+        <div class="endpoint">
+            <h3>Get All Subscribers</h3>
+            <button onclick="getAllSubscribers()">Test Endpoint</button>
+            <pre id="allSubscribersResult">Results will appear here...</pre>
+        </div>
+
+        <div class="endpoint">
+            <h3>Get Subscribers Names and Channels</h3>
+            <button onclick="getSubscriberNames()">Test Endpoint</button>
+            <pre id="subscriberNamesResult">Results will appear here...</pre>
+        </div>
+
+        <div class="endpoint">
+            <h3>Get Subscriber by ID</h3>
+            <input type="text" id="subscriberId" placeholder="Enter subscriber ID">
+            <button onclick="getSubscriberById()">Test Endpoint</button>
+            <pre id="subscriberByIdResult">Results will appear here...</pre>
+        </div>
+    </div>
+
+    <script>
+        async function getAllSubscribers() {
+            const result = document.getElementById('allSubscribersResult');
+            try {
+                const response = await fetch('/subscribers');
+                const data = await response.json();
+                result.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                result.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function getSubscriberNames() {
+            const result = document.getElementById('subscriberNamesResult');
+            try {
+                const response = await fetch('/subscribers/names');
+                const data = await response.json();
+                result.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                result.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function getSubscriberById() {
+            const result = document.getElementById('subscriberByIdResult');
+            const id = document.getElementById('subscriberId').value;
+
+            if (!id) {
+                result.textContent = 'Please enter a subscriber ID';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/subscribers/${id}`);
+                const data = await response.json();
+                result.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                result.textContent = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+
+</html>
