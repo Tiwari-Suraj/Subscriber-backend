@@ -9,10 +9,14 @@ const options = {
             description: 'A simple API to manage YouTube channel subscribers',
             contact: {
                 name: 'API Support',
-                url: 'http://localhost:3000'
+                url: 'https://subscriber-backend.onrender.com'
             },
         },
         servers: [
+            {
+                url: 'https://subscriber-backend.onrender.com',
+                description: 'Production server',
+            },
             {
                 url: 'http://localhost:3000',
                 description: 'Development server',

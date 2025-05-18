@@ -92,10 +92,12 @@
     </div>
 
     <script>
+        const API_BASE_URL = 'https://subscriber-backend.onrender.com';
+
         async function getAllSubscribers() {
             const result = document.getElementById('allSubscribersResult');
             try {
-                const response = await fetch('/subscribers');
+                const response = await fetch(`${API_BASE_URL}/subscribers`);
                 const data = await response.json();
                 result.textContent = JSON.stringify(data, null, 2);
             } catch (error) {
@@ -106,7 +108,7 @@
         async function getSubscriberNames() {
             const result = document.getElementById('subscriberNamesResult');
             try {
-                const response = await fetch('/subscribers/names');
+                const response = await fetch(`${API_BASE_URL}/subscribers/names`);
                 const data = await response.json();
                 result.textContent = JSON.stringify(data, null, 2);
             } catch (error) {
@@ -124,7 +126,7 @@
             }
 
             try {
-                const response = await fetch(`/subscribers/${id}`);
+                const response = await fetch(`${API_BASE_URL}/subscribers/${id}`);
                 const data = await response.json();
                 result.textContent = JSON.stringify(data, null, 2);
             } catch (error) {
